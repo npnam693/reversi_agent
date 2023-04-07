@@ -131,7 +131,6 @@ class Game:
         self.player1 = player1
         self.player2 = player2
         self.board = board
-    
     def end_check(self):
         cur_board = self.board.get_board()
         def is_valid_move(board, row, col, turn):
@@ -209,7 +208,7 @@ class Game:
         self.screen.blit(player2_time, player2_time_rect)
     
     def loop(self):
-        turn =1
+        turn = self.player1.turn
         self.board.draw_board(self.screen)
         self.draw_turn(self.player1,self.player2,turn)
         pg.display.flip()
@@ -220,39 +219,29 @@ class Game:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     looping = False
-            if turn ==1:
+            if turn == self.player1.turn:
                 move=self.player1.move(self.board.board_state)
                 if move == -1:
                     winner = -1
-                    self.print_message(self.player1.name+" lose due to out of time")
-                    open('Output.txt',mode='a',encoding='utf-8').writelines(self.player1.name+" lose due to out of time" + '\n')
                     pg.display.flip()
-                    # time.sleep(DELAY_TIME)
                     break
             else: 
                 move=self.player2.move(self.board.board_state)
                 if move == -1:
                     winner = 1
-                    self.print_message(self.player2.name+" lose due to out of time")
-                    open('Output.txt',mode='a',encoding='utf-8').writelines(self.player2.name+" lose due to out of time" + '\n')
                     pg.display.flip()
-                    # time.sleep(DELAY_TIME)
                     break
             valid_move = self.board.update_board(move,turn)
             if not valid_move:
                 if turn==1:
                     winner = -1
-                    self.print_message(self.player1.name+" lose due to invalid move")
-                    open('Output.txt',mode='a',encoding='utf-8').writelines(self.player1.name+" lose due to invalid move" + '\n')
                     pg.display.flip()
                     # time.sleep(DELAY_TIME)
                     break
                 else:
                     winner = 1
-                    self.print_message(self.player2.name+" lose due to invalid move")
-                    open('Output.txt',mode='a',encoding='utf-8').writelines(self.player2.name+" lose due to invalid move" + '\n')
                     pg.display.flip()
-                    # time.sleep(DELAY_TIME)
+                    # time.sleep(DELAY_TIME) 
                     break
             self.board.draw_board(self.screen)
             self.draw_turn(self.player1,self.player2,turn)
@@ -262,10 +251,10 @@ class Game:
                 winner = self.win_check()
             else:
                 turn = - turn
-            # time.sleep(1)
-        if winner == 1: 
+        time.sleep(1)
+        if winner == self.player1.turn: 
             title = self.player1.name + " win"
-        elif winner == -1: 
+        elif winner == self.player2.turn: 
             title = self.player2.name + " win"
         else: 
             title = self.player1.name + " draw " + self.player2.name

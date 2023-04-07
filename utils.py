@@ -98,3 +98,48 @@ def get_score_position_stragety(cur_state, player_to_move):
             if (cur_state[row][col] == player_to_move):
                 score += POSITION_SCORES2[row][col]
     return score
+
+
+
+def heuristic(cur_state, player_to_move):
+    score = 0
+    for i in range(8):
+        for j in range(8):
+            score += cur_state[i][j] * POSITION_SCORES[i][j]
+
+    for i in range(8):
+        row_pieces = [cur_state[i][0]]
+        col_pieces = [cur_state[0][i]]
+        for j in range(1,8):
+            if row_pieces[-1] * cur_state[i][j] > 0:
+                row_pieces[-1] += cur_state[i][j]
+            else:
+                row_pieces.append(cur_state[i][j])
+            
+            if col_pieces[-1] * cur_state[j][i] > 0:
+                col_pieces[-1] += cur_state[j][i]
+            else:
+                col_pieces.append(cur_state[j][i])
+
+        if len(row_pieces) >= 3:
+            for j in range(1, len(row_pieces)-1):
+                if row_pieces[j] != 0:
+                    if row_pieces[j-1] * row_pieces[j+1] == 0 and row_pieces[j-1] + row_pieces[j+1] != 0:
+                        score -= row_pieces[j] * 1
+
+        if len(col_pieces) >= 3:
+            for j in range(1, len(col_pieces)-1):
+                if col_pieces[j] != 0:
+                    if col_pieces[j-1] * col_pieces[j+1] == 0 and col_pieces[j-1] + col_pieces[j+1] != 0:
+                        score -= col_pieces[j] * 1
+
+    if cur_state[0][0] == 0:
+        score -= (cur_state[1][0] + cur_state[0][1] + cur_state[1][1])*3
+    if cur_state[0][7] == 0:
+        score -= (cur_state[1][7] + cur_state[0][6] + cur_state[1][6])*3
+    if cur_state[7][0] == 0:
+        score -= (cur_state[7][1] + cur_state[6][0] + cur_state[6][1])*3
+    if cur_state[7][7] == 0:
+        score -= (cur_state[6][7] + cur_state[7][6] + cur_state[6][6])*3
+
+    return (score * player_to_move)
