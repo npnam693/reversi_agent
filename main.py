@@ -11,9 +11,9 @@ def main():
     i = 30
     count = 0
     while i > 0:
-        temp = RANDOM_AGENT_1
-        RANDOM_AGENT_1 = RANDOM_AGENT_2
-        RANDOM_AGENT_2 = temp
+        temp = player1
+        player1 = player2
+        player2 = temp
         board = Board(INITIAL_STATE)
         game = Game(player1,player2,board)
         result = game.loop()

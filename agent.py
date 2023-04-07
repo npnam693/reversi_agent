@@ -108,4 +108,4 @@ def minimax_position_agent(cur_state, player_to_move, remain_time):
                 best_move = move
                 best_score = score
         return best_score    
-    return minimax(cur_state, 4, player_to_move)
+    return minimax(cur_state, 5, player_to_move)
