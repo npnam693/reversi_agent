@@ -66,7 +66,7 @@ def minimax_agent(cur_state, player_to_move, remain_time):
         return best_score    
     return minimax(cur_state, 3, player_to_move)
 
-def minimax_position_agent(cur_state, player_to_move, remain_time):
+def minimax_position1_agent(cur_state, player_to_move, remain_time):
     def minimax(cur_state, depth, player_to_move):
         moves = get_valid_moves(cur_state, player_to_move)
         if (len(moves) == 0): return None
@@ -98,6 +98,51 @@ def minimax_position_agent(cur_state, player_to_move, remain_time):
     def max_play(cur_state, depth, player_to_move):
         if depth == 0:
             return get_score_position_stragety(cur_state, player_to_move)
+        moves = get_valid_moves(cur_state, player_to_move)
+        best_score = -1000
+        for move in moves:
+            newboard = cur_state.copy()
+            newboard = make_move(newboard, move, player_to_move)
+            score = min_play(newboard, depth-1, player_to_move)
+            if score > best_score:
+                best_move = move
+                best_score = score
+        return best_score    
+    return minimax(cur_state, 4, player_to_move)
+
+
+def minimax_position2_agent(cur_state, player_to_move, remain_time):
+    def minimax(cur_state, depth, player_to_move):
+        moves = get_valid_moves(cur_state, player_to_move)
+        if (len(moves) == 0): return None
+        best_move = moves[0]
+        best_score = -1000
+        for move in moves:
+            newboard = cur_state.copy()
+            newboard = make_move(newboard, move, player_to_move)
+            score = min_play(newboard, depth-1, player_to_move)
+            if score > best_score:
+                best_move = move
+                best_score = score
+        return best_move
+
+    def min_play(cur_state, depth, player_to_move):
+        if depth == 0:
+            return heuristic(cur_state, player_to_move)
+        moves = get_valid_moves(cur_state, -player_to_move)
+        best_score = 1000
+        for move in moves:
+            newboard = cur_state.copy()
+            newboard = make_move(newboard, move, -player_to_move)
+            score = max_play(newboard, depth-1, player_to_move)
+            if score < best_score:
+                best_move = move
+                best_score = score
+        return best_score
+
+    def max_play(cur_state, depth, player_to_move):
+        if depth == 0:
+            return heuristic(cur_state, player_to_move)
         moves = get_valid_moves(cur_state, player_to_move)
         best_score = -1000
         for move in moves:
