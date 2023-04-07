@@ -72,3 +72,29 @@ def get_score(cur_state, player_to_move):
             else:
                 score -= 1
     return score
+
+
+POSITION_SCORES = [[25, 0, 6, 5, 5, 6, 0, 25],
+                    [ 0, 0, 1, 1, 1, 1, 0,  0],
+                    [ 6, 1, 4, 3, 3, 4, 1,  6],
+                    [ 5, 1, 3, 2, 2, 3, 1,  5],
+                    [ 5, 1, 3, 2, 2, 3, 1,  5],
+                    [ 6, 1, 4, 3, 3, 4, 1,  6],
+                    [ 0, 0, 1, 1, 1, 1, 0,  0],
+                    [25, 0, 6, 5, 5, 6, 0, 25]]
+
+POSITION_SCORES2 = [[95,10,80,75,75,80,10,95],
+                    [10,10,45,45,45,45,10,10],
+                    [65,40,70,50,50,70,40,65],
+                    [60,40,40,40,40,40,40,60],
+                    [60,40,40,40,40,40,40,60],
+                    [65,40,70,50,50,70,40,65],
+                    [10,10,45,45,45,45,10,10],
+                    [95,10,65,60,60,65,10,95]]
+def get_score_position_stragety(cur_state, player_to_move):
+    score = 0
+    for row in range (0,8):
+        for col in range (0,8):
+            if (cur_state[row][col] == player_to_move):
+                score += POSITION_SCORES2[row][col]
+    return score
