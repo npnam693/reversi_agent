@@ -1,4 +1,4 @@
-from utils import is_valid_move, get_valid_moves, make_move, get_score, get_score_position_stragety
+from utils import is_valid_move, get_valid_moves, make_move, get_score, get_score_position_stragety, heuristic
 import random
 
 
@@ -64,7 +64,7 @@ def minimax_agent(cur_state, player_to_move, remain_time):
                 best_move = move
                 best_score = score
         return best_score    
-    return minimax(cur_state, 4, player_to_move)
+    return minimax(cur_state, 3, player_to_move)
 
 def minimax_position_agent(cur_state, player_to_move, remain_time):
     def minimax(cur_state, depth, player_to_move):
@@ -108,4 +108,4 @@ def minimax_position_agent(cur_state, player_to_move, remain_time):
                 best_move = move
                 best_score = score
         return best_score    
-    return minimax(cur_state, 5, player_to_move)
+    return minimax(cur_state, 2, player_to_move)
