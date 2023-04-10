@@ -1,9 +1,10 @@
 from game import Game, Board, Player, INITIAL_STATE
 import agent 
+import mcts_agent
 
 def main():
-    RANDOM_AGENT_1 = Player(agent.random_agent,"random_agent ",1)
-    RANDOM_AGENT_2 = Player(agent.alpha_beta_agent,"minimax_position2_agent",-1)
+    RANDOM_AGENT_1 = Player(agent.random_agent,"random_agent",1)
+    RANDOM_AGENT_2 = Player(mcts_agent.MTCS_Agent,"alpha_beta_agent",-1)
     i = 300
     count = 0
     myturn = -1

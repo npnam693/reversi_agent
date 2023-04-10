@@ -246,12 +246,17 @@ class Game:
             self.board.draw_board(self.screen)
             self.draw_turn(self.player1,self.player2,turn)
             pg.display.flip()
+
             looping = self.end_check()
             if looping:
                 winner = self.win_check()
             else:
                 turn = - turn
-        # time.sleep(1)
+        
+        
+        
+        
+        time.sleep(5)
         if winner == self.player1.turn: 
             title = self.player1.name + " win"
         elif winner == self.player2.turn: 
