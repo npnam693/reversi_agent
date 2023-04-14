@@ -42,10 +42,16 @@ class Node:
         cur_board = self.board.copy()
 
         now_turn = self.turn
+
+
         
-        while end_check(cur_board):
-            cur_board = make_move(cur_board, random.choice(get_valid_moves(cur_board, now_turn)))
-            now_turn = -now_turn
+        while not end_check(cur_board):
+            if len(get_valid_moves(cur_board, now_turn)) == 0:
+                now_turn = -now_turn
+            else:
+                cur_board = make_move(cur_board, random.choice(get_valid_moves(cur_board, now_turn)), now_turn)
+                now_turn = -now_turn
+
 
         if win_check(cur_board) == self.myTurn:
             return True
@@ -60,24 +66,21 @@ class Node:
 
 def MTCS_Agent(cur_state, player_to_move, remain_time):
     root_node = Node(cur_state, None, player_to_move, player_to_move)
-    iterator = 1000
+    iterator = 20
 
     while iterator >= 0:
         iterator -=1
         node = root_node.select_child()
         if node is None: return None
-        if end_check(node.board) and win_check(node.board) == player_to_move:
-            break
+        if end_check(node.board):
+            return node.move
         resultSimulate = node.simulate()
         node.propagate(resultSimulate)
-    
-
-
 
     ln_games = math.log(root_node.games)
-    
     def uct_score(child):
             return (child.wins / child.games) + 1.41 * math.sqrt(ln_games / child.games)
     good_child = max(root_node.childs, key=uct_score)
+    
     return good_child.move
         

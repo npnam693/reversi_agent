@@ -252,10 +252,6 @@ class Game:
                 winner = self.win_check()
             else:
                 turn = - turn
-        
-        
-        
-        
         time.sleep(5)
         if winner == self.player1.turn: 
             title = self.player1.name + " win"

@@ -4,7 +4,8 @@ import mcts_agent
 
 def main():
     RANDOM_AGENT_1 = Player(agent.random_agent,"random_agent",1)
-    RANDOM_AGENT_2 = Player(mcts_agent.MTCS_Agent,"alpha_beta_agent",-1)
+    RANDOM_AGENT_2 = Player(mcts_agent.MTCS_Agent,"MTCS_Agent",-1)
+    # RANDOM_AGENT_2 = Player(agent.alpha_beta_agent,"alpha_beta_agent",-1)
     i = 300
     count = 0
     myturn = -1
@@ -24,3 +25,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+    
