@@ -260,9 +260,9 @@ class Game:
             else:
                 turn = - turn
             # time.sleep(1)
-        if winner == 1: 
+        if winner == self.player1.turn: 
             title = self.player1.name + " win"
-        elif winner == -1: 
+        elif winner == self.player2.turn:
             title = self.player2.name + " win"
         else: 
             title = self.player1.name + " draw " + self.player2.name

@@ -2,8 +2,8 @@ from game import Game, Board, Player, INITIAL_STATE
 import agent 
 
 def main():
-    RANDOM_AGENT_1 = Player(agent.minimax_position1_agent,"minimax_position1_agent ",1)
-    RANDOM_AGENT_2 = Player(agent.minimax_position2_agent,"minimax_position2_agent",-1)
+    RANDOM_AGENT_1 = Player(agent.random_agent,"random_agent ",1)
+    RANDOM_AGENT_2 = Player(agent.alpha_beta_agent,"minimax_position2_agent",-1)
     i = 30
     count = 0
     turn = -1
@@ -17,7 +17,7 @@ def main():
         game = Game(RANDOM_AGENT_1,RANDOM_AGENT_2,board)
         result = game.loop()
         i-=1  
-        if result == turn:
+        if result == -1:
             count+=1
     print(count)
 

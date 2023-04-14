@@ -111,46 +111,47 @@ def minimax_position1_agent(cur_state, player_to_move, remain_time):
     return minimax(cur_state, 4, player_to_move)
 
 
-def minimax_position2_agent(cur_state, player_to_move, remain_time):
-    def minimax(cur_state, depth, player_to_move):
+def alpha_beta_agent(cur_state, player_to_move, remain_time):
+    def alphabeta(cur_state, depth, player_to_move, alpha = -1000, beta = 1000):
         moves = get_valid_moves(cur_state, player_to_move)
         if (len(moves) == 0): return None
         best_move = moves[0]
-        best_score = -1000
         for move in moves:
             newboard = cur_state.copy()
             newboard = make_move(newboard, move, player_to_move)
-            score = min_play(newboard, depth-1, player_to_move)
-            if score > best_score:
+            score = ab_min(newboard, depth-1, player_to_move, alpha, beta)
+            if score > alpha:
+                alpha = score
                 best_move = move
-                best_score = score
         return best_move
 
-    def min_play(cur_state, depth, player_to_move):
+    def ab_min(cur_state, depth, player_to_move, alpha, beta):
         if depth == 0:
             return heuristic(cur_state, player_to_move)
         moves = get_valid_moves(cur_state, -player_to_move)
-        best_score = 1000
         for move in moves:
             newboard = cur_state.copy()
             newboard = make_move(newboard, move, -player_to_move)
-            score = max_play(newboard, depth-1, player_to_move)
-            if score < best_score:
+            score = ab_max(newboard, depth-1, player_to_move, alpha, beta)
+            if score < beta:
+                beta = score
                 best_move = move
-                best_score = score
-        return best_score
+            if alpha >= beta:
+                break
+        return beta
 
-    def max_play(cur_state, depth, player_to_move):
+    def ab_max(cur_state, depth, player_to_move, alpha, beta):
         if depth == 0:
             return heuristic(cur_state, player_to_move)
         moves = get_valid_moves(cur_state, player_to_move)
-        best_score = -1000
         for move in moves:
             newboard = cur_state.copy()
             newboard = make_move(newboard, move, player_to_move)
-            score = min_play(newboard, depth-1, player_to_move)
-            if score > best_score:
+            score = ab_min(newboard, depth-1, player_to_move, alpha, beta)
+            if score > alpha:
+                alpha = score
                 best_move = move
-                best_score = score
-        return best_score    
-    return minimax(cur_state, 2, player_to_move)
+            if alpha >= beta:
+                break
+        return alpha    
+    return alphabeta(cur_state, 5, player_to_move)
