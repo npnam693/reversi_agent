@@ -1,12 +1,11 @@
 from game import Game, Board, Player, INITIAL_STATE
 import agent 
-import mcts_agent
+from _1915939_2013827_2014914_2010951 import select_move
 
 def main():
     RANDOM_AGENT_1 = Player(agent.random_agent,"random_agent",1)
-    RANDOM_AGENT_2 = Player(mcts_agent.MTCS_Agent,"MTCS_Agent",-1)
-    # RANDOM_AGENT_2 = Player(agent.alpha_beta_agent,"alpha_beta_agent",-1)
-    i = 300
+    RANDOM_AGENT_2 = Player(select_move,"alpha beta",-1)
+    i = 10
     count = 0
     myturn = -1
     while i > 0:
@@ -21,7 +20,7 @@ def main():
         if result == -1:
             count+=1
         myturn = -myturn
-    print(count)
+    print(count, '/100')
 
 if __name__ == "__main__":
     main()
