@@ -43,7 +43,11 @@ def select_move(cur_state, player_to_move, remain_time):
                 break
         return alpha    
     
+<<<<<<< HEAD
     return alphabeta(cur_state, 5, player_to_move)
+=======
+    return alphabeta(cur_state, 6, player_to_move)
+>>>>>>> 90802dc263cdb5a16393beb5a27484b2ce1e9ced
 
 def get_valid_moves(board, turn):
     valid_moves = []

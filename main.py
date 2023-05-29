@@ -22,7 +22,7 @@ def main():
         if result == -1:
             count+=1
         myturn = -myturn
-    print(count)
+    print(count, '/100')
 
 if __name__ == "__main__":
     main()

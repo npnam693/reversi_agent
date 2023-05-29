@@ -8,7 +8,7 @@ RED_COLOR = (255, 0, 0)
 BOARD_SIZE = 8
 DELAY_TIME = 0
 TOTAL_TIME = 60
-LIMIT_TIME = 20
+LIMIT_TIME = 3
 INITIAL_STATE = [[0,0,0,0,0,0,0,0], 
                  [0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,0],
@@ -254,7 +254,6 @@ class Game:
                 winner = self.win_check()
             else:
                 turn = - turn
-        # time.sleep(5)
         if winner == self.player1.turn: 
             title = self.player1.name + " win"
         elif winner == self.player2.turn:
